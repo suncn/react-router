@@ -35,6 +35,7 @@ const App = React.createClass({
   },
 
   render() {
+	console.log("testa", testa);  
     const contacts = this.state.contacts.map(function (contact) {
       return <li key={contact.id}><Link to={`/contact/${contact.id}`}>{contact.first}</Link></li>
     })

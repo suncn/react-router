@@ -28,6 +28,15 @@ const data = [
   }
 ]
 
+/**
+ * 数据扁平化 对象变键：值对象 
+ *
+ * reduce 参数1 方法 参数2 上一次操作的结果默认值
+ * 方法中参数1：上一次操作的结果 参数2：循环的当前项
+ *
+ * @returns {undefined}
+ */
+
 const dataMap = data.reduce(function (map, category) {
   category.itemsMap = category.items.reduce(function (itemsMap, item) {
     itemsMap[item.name] = item
@@ -36,6 +45,8 @@ const dataMap = data.reduce(function (map, category) {
   map[category.name] = category
   return map
 }, {})
+
+console.log("dataMap", dataMap);
 
 exports.getAll = function () {
   return data

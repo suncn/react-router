@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{Component} from 'react'
 import { render } from 'react-dom'
 import { browserHistory, Router, Route, Link, withRouter } from 'react-router'
 
@@ -24,32 +24,33 @@ const Dashboard = React.createClass({
   }
 })
 
-const Form = withRouter(
-  React.createClass({
+class FormComponent extends Component{
 
-    componentWillMount() {
+  constructor(){
+      super();
+	  this.state = {
+		  textValue:"ohai2"
+	  }
+  }
+	 componentWillMount() {
+	  console.log("this.props.router", this.props.route);
       this.props.router.setRouteLeaveHook(
         this.props.route,
-        this.routerWillLeave
+        this.routerWillLeave.bind(this)
       )
-    },
-
-    getInitialState() {
-      return {
-        textValue: 'ohai'
-      }
-    },
+    }
 
     routerWillLeave() {
       if (this.state.textValue)
         return 'You have unsaved information, are you sure you want to leave this page?'
-    },
+    }
 
     handleChange(event) {
+		console.log("this", this);
       this.setState({
         textValue: event.target.value
       })
-    },
+    }
 
     handleSubmit(event) {
       event.preventDefault()
@@ -59,21 +60,23 @@ const Form = withRouter(
       }, () => {
         this.props.router.push('/')
       })
-    },
+    }
 
     render() {
       return (
         <div>
-          <form onSubmit={this.handleSubmit}>
+          <form onSubmit={this.handleSubmit.bind(this)}>
             <p>Click the dashboard link with text in the input.</p>
-            <input type="text" ref="userInput" value={this.state.textValue} onChange={this.handleChange} />
+            <input type="text" ref="userInput" value={this.state.textValue} onChange={this.handleChange.bind(this)} />
             <button type="submit">Go</button>
           </form>
         </div>
       )
     }
-  })
-)
+
+}
+
+const Form = withRouter(FormComponent)
 
 render((
   <Router history={withExampleBasename(browserHistory, __dirname)}>

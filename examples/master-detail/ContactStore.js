@@ -1,5 +1,6 @@
 const API = 'http://addressbook-api.herokuapp.com/contacts'
 
+let testa = 1
 let _contacts = {}
 let _initCalled = false
 let _changeListeners = []
@@ -93,6 +94,11 @@ function postJSON(url, obj, cb) {
   req.send(JSON.stringify(obj))
 }
 
+// TODO: need to implement
+// FIXME:need to fix
+function user() {
+	console.log('good');
+}
 function deleteJSON(url, cb) {
   const req = new XMLHttpRequest()
   req.onload = cb

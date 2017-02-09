@@ -9,6 +9,7 @@ import './app.css'
 const App = ({ children, routes }) => {
   const depth = routes.length
 
+  console.log("routes", routes, children);
   return (
     <div>
       <aside>
